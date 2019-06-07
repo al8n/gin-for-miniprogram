@@ -1,6 +1,7 @@
 package wxHandler
 
 import (
+	"../../bash_profile"
 	"../../db/registerDB"
 	"../../models/register"
 	"encoding/json"
@@ -18,12 +19,7 @@ type WxHandler struct {
 	wxDB _WxHandlerInterface
 }
 
-const (
-	site = "https://api.weixin.qq.com/sns/jscode2session?"
-	wxAppId = "wx6f9cc63ed9ded89b" // replaced by your App id
-	wxSecret = "421169661fc3ef99110fe20c75a64ad1" // replaced by your secret
-	httpTail = "&grant_type=authorization_code"
-)
+
 
 //type wxOpenID struct {
 //	openid string `json:"wxOpenID"`
@@ -46,7 +42,7 @@ func (wxDB *WxHandler) WxRegister(c *gin.Context)  {
 		return
 	}
 	// 拼接微信API地址
-	url := site + "appid=" + wxAppId + "&secret=" + wxSecret + "&js_code=" + data.Code + httpTail
+	url := bash_profile.WxSite + "appid=" + bash_profile.WxAppId + "&secret=" + bash_profile.WxSecret + "&js_code=" + data.Code + bash_profile.WxHttpTail
 
 	// 转发请求到微信接口
 	resp, err := http.Get(url)

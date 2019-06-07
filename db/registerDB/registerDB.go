@@ -23,7 +23,7 @@ type UserDB struct {
 
 func (dbIpt *UserDB) WxRegister(user register.WxUser) Message {
 	// 连接数据库
-	collection := db.NewConnection(bash_profile.DBConnect).Use(bash_profile.DBName, bash_profile.UserCollection)
+	collection := db.NewConnection(bash_profile.DBConnect).Use(bash_profile.DBName, bash_profile.WxUserCollection)
 
 	// 用户创建时间
 	user.CreateDate = time.Now()

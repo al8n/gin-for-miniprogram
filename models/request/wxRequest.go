@@ -1,9 +1,12 @@
-package register
+package request
 
-import "time"
+import (
+	"time"
+)
 
 type WxUser struct {
-	OpenID      string  			`bson:"wxOpenId"`
+	ID			interface{}			`bson:"_id,omitempty"`	// mongodb创建时自动生成的ID
+	OpenID      string  			`bson:"wxOpenId" binding:"required"`
 	// UnionID 	string				`bson:"wxUnionId"` 如果程序使用unionid 登录
 	Nickname    string 				`bson:"wxNickname"`
 	AvatarUrl   string 				`bson:"wxAvatarUrl"`
@@ -12,12 +15,18 @@ type WxUser struct {
 	Province	string				`bson:"province"`
 	Country 	string				`bson:"country"`
 	CreateDate	time.Time  			`bson:"createDate"`
-	UpdateDate  time.Time           `bson:"updated"`
+	/**
+	put custom code here
+	eg.
+		Email			string		`json:"email" binding:"required"`
+		Password 		string		`json:"password" binding:"required"`
+		UpdateDate  time.Time           `bson:"updated"`
+	 */
 }
 
 
-type WxRegister struct {
-	Code		string      `json:"code" binding:"required"`
+type WxRequestData struct {
+	Code		string      `json:"code"`
 	NickName	string 		`json:"nickName"`
 	Gender		int 		`json:"gender"`
 	City 		string		`json:"city"`

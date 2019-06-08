@@ -10,36 +10,29 @@ import (
 
 
 // 使用mongoDB官方库进行数据库操作
-type _MongoDBClient struct {
-	cli *mongo.Client
+type MongoDBClient struct {
+	*mongo.Client
 }
 
 // 建立与mongodb的连接
-func NewConnection(uri string) (conn *_MongoDBClient) {
-	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
-	if err != nil {
-		panic(err)
-	}
+func NewConnection(uri string) (*MongoDBClient, error) {
 
-	// 5s 之内如果无法连接到数据库则抛出异常
-	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second)
+	clientOptions := options.Client().ApplyURI(uri)
+	client, err := mongo.Connect(context.TODO(), clientOptions)
 
-	defer cancel()
-
-	err = client.Connect(ctx)
-	if err != nil {
-		panic(err)
-	}
-	conn = &_MongoDBClient{client}
-	return conn
+	return &MongoDBClient{
+		client,
+	}, err
 }
 
 // 选择数据库及表单
-func (conn *_MongoDBClient) Use(dbname, collname string) (collection *mongo.Collection) {
-	return conn.cli.Database(dbname).Collection(collname)
+func Use(client *mongo.Client, dbname, collname string) ( *mongo.Collection ) {
+	return client.Database(dbname).Collection(collname)
 }
 
+// 限制每次操作数据库的操作时间为10s
 func GetContext() (ctx context.Context) {
 	ctx, _ = context.WithTimeout(context.Background(), 10*time.Second)
 	return
 }
+

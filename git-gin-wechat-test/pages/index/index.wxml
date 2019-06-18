@@ -9,5 +9,7 @@
   </view>
   <view class="usermotto">
   </view>
-  <button style="background-color: #4db6ac; color: white" open-type='getUserInfo' bindgetuserinfo='doLogin'>微信登录</button>
+  <button style="background-color: #4db6ac; color: white" open-type='getUserInfo' bindgetuserinfo='doWxLogin'>微信登录</button>
+  <button style="background-color: #4db6ac; color: white" bindtap='doWebLogin'>web登录</button>
+  <button style="background-color: #4db6ac; color: white" bindtap='doWebRegister'>web注册</button>
 </view>

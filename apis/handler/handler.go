@@ -11,6 +11,8 @@ import (
 type IHandler interface {
 	WxLogin(id string) (request.WxUser, error)
 	WxRegister(c *gin.Context)
+	WebRegister(c *gin.Context)
+	WebLogin(c *gin.Context)
 }
 
 type Handler struct {

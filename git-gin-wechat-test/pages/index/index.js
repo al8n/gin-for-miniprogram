@@ -51,7 +51,7 @@ Page({
       hasUserInfo: true
     })
   },
-  doLogin(e) {
+  doWxLogin(e) {
     wx.login({
       success(res) {
         if (res.code) {
@@ -66,5 +66,27 @@ Page({
         }
       }
     })
+    
   },
+  doWebLogin(e) {
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:6340/web/login', // Api地址
+      data: {
+        password: 'lgy981224',
+        email: '15704634868@163.com'
+      }
+    })
+  },
+  doWebRegister(e) {
+    wx.request({
+      method: 'POST',
+      url: 'http://localhost:6340/web/register', // Api地址
+      data: {
+        username: '给我点阳光就灿烂',
+        password: 'lgy981224',
+        email: '15704634868@163.com'
+      }
+    })
+  }
 })

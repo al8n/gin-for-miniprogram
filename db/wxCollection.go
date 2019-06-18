@@ -18,7 +18,6 @@ func (odb *MongoDBClient) WxLogin(id string) (request.WxUser, error) {
 	var user request.WxUser
 	collection := Use(odb.Client, bash_profile.DBName, bash_profile.WxUserCollection)
 	result := collection.FindOne(GetContext(), bson.D{{"wxOpenId", id}}).Decode(&user)
-
 	if result != nil {
 		return user, result
 	}

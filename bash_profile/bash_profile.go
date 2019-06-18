@@ -11,4 +11,6 @@ const (
 	WxAppId = "wx6f9cc63ed9ded89b" 								// 使用自己的AppId 进行替换
 	WxSecret = "421169661fc3ef99110fe20c75a64ad1" 				// 使用自己的Secret 进行替换
 	WxHttpTail = "&grant_type=authorization_code"
+
+	WebUserCollection = "web_users"
 )
